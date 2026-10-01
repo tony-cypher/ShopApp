@@ -12,13 +12,15 @@
 
 # FrankenPHP = PHP 8.4 + Caddy in one process.
 
-# Serves Laravel from /app/backend/public and honours Render's $PORT.
+# Serves Laravel from /app/public and honours Render's $PORT.
 
 FROM dunglas/frankenphp:1-php8.4
 
 # PHP extensions required by Laravel + Supabase PostgreSQL.
 
 RUN install-php-extensions pdo_pgsql opcache zip
+
+# Production environment variables.
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 APP_ENV=production
@@ -56,6 +58,6 @@ RUN composer dump-autoload --optimize
 
 ENTRYPOINT ["/app/docker/start.sh"]
 
-# The official FrankenPHP executable is available through PATH.
+# Start FrankenPHP after Laravel initialization.
 
 CMD ["frankenphp", "run", "--config", "/app/Caddyfile", "--adapter", "caddyfile"]
