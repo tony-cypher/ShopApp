@@ -201,7 +201,7 @@ backend/                  Laravel API
 ├─ scripts                   fetch-product-images.mjs (one-time image downloader)
 ├─ database/migrations       categories, brands, products, reviews, favorites, orders…
 ├─ database/seeders          33 products, 10 brands, 8 categories, reviews, demo user
-├─ Dockerfile / Caddyfile    production container (Render)
+(container files live at the REPO ROOT — see below)
 ├─ docker/start.sh           container boot: cache + migrate + serve
 └─ routes/api.php
 
@@ -260,8 +260,9 @@ the catalogue stays fast with no external CDN calls at runtime.
 | Email | **Mailgun** | or `MAIL_MAILER=log` to test in Render logs |
 
 All deployment files are already in the repo: `render.yaml` (blueprint),
-`backend/Dockerfile` + `backend/Caddyfile` + `backend/docker/start.sh`,
-`frontend/vercel.json`, `backend/.env.production.example`, `frontend/.env.example`.
+`Dockerfile` (repo root — Render's default location) + `backend/Caddyfile` +
+`backend/docker/start.sh`, `frontend/vercel.json`,
+`backend/.env.production.example`, `frontend/.env.example`.
 
 ### 0. Push the repo to GitHub
 

@@ -1,7 +1,11 @@
-# Render Blueprint — deploys the MLC Laravel API from backend/Dockerfile.
+# Render Blueprint — deploys the MLC Laravel API.
 #
 # One-click deploy: Render dashboard → New + → Blueprint → pick this repo.
 # Docs: https://render.com/docs/blueprint-spec
+#
+# The Dockerfile lives at the REPO ROOT (Render's default path — this avoids
+# "no such file or directory" when the dockerfilePath setting is missed), with
+# the repo as build context. Only backend/ is copied into the image.
 #
 # Every `sync: false` value is a secret you fill in once, in the Render
 # dashboard (see backend/.env.production.example and README §8).
@@ -12,8 +16,8 @@ services:
     runtime: docker
     plan: free
     region: oregon # pick the region closest to your Supabase project
-    dockerContext: ./backend
-    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /up
     autoDeploy: true
     envVars:

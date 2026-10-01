@@ -1,0 +1,22 @@
+# Keep the image lean and free of secrets — only backend/ is needed.
+frontend
+node_modules
+.git
+.gitattributes
+.gitignore
+render.yaml
+README.md
+*.md
+
+backend/.env
+backend/.env.*
+!backend/.env.production.example
+backend/vendor
+backend/node_modules
+backend/database/database.sqlite
+backend/storage/logs/*
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+backend/tests

@@ -1,7 +1,11 @@
 # MLC API — production image for Render (runtime: docker).
 #
+# Lives at the repo ROOT so Render always finds it (default dockerfilePath is
+# ./Dockerfile), and uses the repo root as build context. Only backend/ is
+# copied into the image — the React frontend deploys to Vercel separately.
+#
 # FrankenPHP (official PHP Foundation image) = PHP 8.4 + Caddy in one process.
-# Serves Laravel from /app/public and honours Render's $PORT.
+# Serves Laravel from /app/backend/public and honours Render's $PORT.
 
 FROM dunglas/frankenphp:1-php8.4
 
@@ -18,9 +22,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-COPY . .
+# Layer cache: composer files first, then the rest of the backend.
+COPY backend/composer.json backend/composer.lock ./
+RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-autoloader
 
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader \
+COPY backend/ /app/
+
+RUN composer dump-autoload --optimize \
     && chmod +x docker/start.sh \
     && chmod -R ug+rwX storage bootstrap/cache
 
