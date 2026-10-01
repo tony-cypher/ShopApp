@@ -32,6 +32,6 @@ RUN composer dump-autoload --optimize \
     && chmod +x docker/start.sh \
     && chmod -R ug+rwX storage bootstrap/cache
 
-EXPOSE 8080
+ENTRYPOINT ["/app/docker/start.sh"]
 
-CMD ["/app/docker/start.sh"]
+CMD ["frankenphp", "run", "--config", "/app/Caddyfile", "--adapter", "caddyfile"]
