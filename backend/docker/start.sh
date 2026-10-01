@@ -23,7 +23,7 @@ fi
 ```
 attempt=$((attempt + 1))
 
-echo "   database not reachable yet — retrying in 5s…"
+echo "   database not reachable yet — retrying in 5s..."
 
 sleep 5
 ```
@@ -40,5 +40,7 @@ php artisan db:seed --force --no-interaction
 fi
 
 echo "==> Application initialization complete"
+
+echo "==> Starting FrankenPHP on port ${PORT:-10000}"
 
 exec "$@"
