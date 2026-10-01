@@ -1,4 +1,3 @@
-```dockerfile
 # MLC API — production image for Render (runtime: docker)
 #
 # Lives at the repo ROOT so Render always finds it (default dockerfilePath is
@@ -47,4 +46,3 @@ ENTRYPOINT ["/app/docker/start.sh"]
 
 # Start FrankenPHP after Laravel initialization.
 CMD ["frankenphp", "run", "--config", "/app/Caddyfile", "--adapter", "caddyfile"]
-```

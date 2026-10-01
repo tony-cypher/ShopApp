@@ -20,3 +20,4 @@ backend/storage/framework/sessions/*
 backend/storage/framework/views/*
 backend/bootstrap/cache/*
 backend/tests
+backend/*.md
