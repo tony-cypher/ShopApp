@@ -1,0 +1,17 @@
+# Normalise line endings on commit.
+* text=auto
+
+# These run inside Linux containers (Render/Docker) — CRLF would break them.
+*.sh text eol=lf
+Dockerfile text eol=lf
+Caddyfile text eol=lf
+artisan text eol=lf
+*.php text eol=lf
+
+# Binary assets
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary
+*.svg text eol=lf

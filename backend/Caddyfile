@@ -1,0 +1,13 @@
+{
+	frankenphp
+	admin off
+	order php_server before file_server
+}
+
+# Render injects $PORT (defaults to 8080 locally). No hostname => plain HTTP;
+# Render terminates TLS in front of the container.
+:{$PORT:8080} {
+	root * /app/public
+	encode zstd br gzip
+	php_server
+}

@@ -1,0 +1,61 @@
+# Render Blueprint — deploys the MLC Laravel API from backend/Dockerfile.
+#
+# One-click deploy: Render dashboard → New + → Blueprint → pick this repo.
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Every `sync: false` value is a secret you fill in once, in the Render
+# dashboard (see backend/.env.production.example and README §8).
+
+services:
+  - type: web
+    name: mlc-api
+    runtime: docker
+    plan: free
+    region: oregon # pick the region closest to your Supabase project
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /up
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_NAME
+        value: MLC
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: APP_KEY
+        sync: false # php artisan key:generate --show
+      - key: APP_URL
+        sync: false # https://mlc-api.onrender.com
+      - key: FRONTEND_URL
+        sync: false # https://mlc-shop.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false # optional extra origins, comma-separated
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false # Supabase host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        value: postgres
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_SSLMODE
+        value: require
+      - key: DB_PERSISTENT
+        value: "true"
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: MAIL_MAILER
+        value: log # switch to mailgun in production
+      - key: RUN_SEED
+        value: "false" # set true once for the first deploy, then back to false

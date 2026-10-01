@@ -1,0 +1,26 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.production.example
+.env.example
+
+# Dependencies are installed inside the image
+/vendor
+node_modules
+
+# Local dev artifacts
+database/database.sqlite
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+.phpunit.cache
+.phpunit.result.cache
+
+# Not needed in the image
+/tests
+Dockerfile
+.dockerignore
+docker-compose*
